@@ -11,22 +11,14 @@ public class Main {
      * @return
      */
     public static int getNumBatters() {
-        // Variable declarations
-        int userInput = 0;                              // User input
 
         // Prompt user and get input
         System.out.print("Enter how many players stats you want to enter: ");
 
-        // This keeps looping until integer input is received.
-        while (!scnr.hasNextInt()) {
-            scnr.nextLine();         // clear the buffer
-            System.out.println("Please enter an integer!");
-        }
-
-        // TODO: validate whether it is a positive integer
+        int userInput = getValidInteger(1,100000);
 
         // Return the scanned value
-        return scnr.nextInt();
+        return userInput;
 
     }
 
@@ -41,16 +33,11 @@ public class Main {
         // Prompt user
         System.out.printf("Enter number of times at bat for batter #%d: ", playerIndex + 1);
 
-        // This keeps looping until integer input is received.
-        while (!scnr.hasNextInt()) {
-            scnr.nextLine();         // clear the buffer
-            System.out.println("Please enter an integer!");
-        }
-
-        // TODO: validate whether it is a positive integer
+        // Call the get Valid integer, max number is static... Is this okay?
+        int userInput = getValidInteger(1,10000);
 
         // Return the scanned value
-        return scnr.nextInt();
+        return userInput;
     }
 
 
@@ -63,17 +50,54 @@ public class Main {
         //Prompt user
         System.out.printf("Result for at-bat %d: ", atBatIndex + 1);
 
+        int userInput = getValidInteger(0,4);
+
+        // Return user Input
+        return userInput;
+
+    }
+
+    /****************************************************************
+     * getValidInteger function to validate that it is an int value *
+     ****************************************************************/
+    public static int getValidInteger() {
+
         // This keeps looping until integer input is received.
         while (!scnr.hasNextInt()) {
             scnr.nextLine();         // clear the buffer
             System.out.println("Please enter an integer!");
         }
 
-        // TODO: validate whether it is a number between 0 and 4
-
-        // Return the scanned value
         return scnr.nextInt();
+    }
 
+
+    /*****************************************************************************
+     * This is a method to determine whether the integer is within min/max range *
+     * Use with checkRangeMethod                                                 *
+     *****************************************************************************/
+    public static int getValidInteger(int min, int max) {
+
+        int userInput = getValidInteger();
+        while (checkRange(userInput,min,max) == false) {
+            System.out.println("Please provide a number within range!");
+            userInput = getValidInteger();
+        }
+        return userInput;
+    }
+
+
+    /**
+     * This is the method that checks the range
+     */
+    public static boolean checkRange(long input, long min, long max) {
+
+        if (input >= min && input <= max) {
+            return true;
+        }
+        else {
+            return false;
+        }
     }
 
 
